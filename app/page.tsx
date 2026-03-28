@@ -56,7 +56,6 @@ export default function Home() {
       <div className="max-w-5xl mx-auto">
         <h1 className="text-4xl font-bold text-yellow-400 mb-2">🎷 Billboard Saxophone Solos</h1>
         <p className="text-gray-400 mb-6">A database of every saxophone solo recorded in the Billboard 100 — 1955 to 2021</p>
-
         <div className="flex flex-col md:flex-row gap-4 mb-6">
           <input
             type="text"
@@ -80,9 +79,7 @@ export default function Home() {
             {saxTypes.map(t => <option key={t}>{t}</option>)}
           </select>
         </div>
-
         <p className="text-gray-400 text-sm mb-4">{filtered.length} results</p>
-
         {loading ? (
           <p className="text-gray-400">Loading solos...</p>
         ) : (
@@ -101,4 +98,17 @@ export default function Home() {
                 {filtered.map(solo => (
                   <tr key={solo.id} className="border-b border-gray-800 hover:bg-gray-800 transition-colors">
                     <td className="py-2 pr-4 text-gray-400">{solo.year}</td>
-                    <td className="py-2 pr-4 font-mediu
+                    <td className="py-2 pr-4 font-medium">{solo.songTitle}</td>
+                    <td className="py-2 pr-4 text-gray-300">{solo.artist}</td>
+                    <td className="py-2 pr-4 text-yellow-300">{solo.soloist}</td>
+                    <td className="py-2 text-gray-400">{solo.saxophoneType}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        )}
+      </div>
+    </main>
+  );
+}

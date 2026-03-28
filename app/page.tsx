@@ -3,9 +3,19 @@ import { useEffect, useState } from "react";
 import { db } from "./lib/firebase";
 import { collection, getDocs, query, orderBy } from "firebase/firestore";
 
+interface Solo {
+  id: string;
+  year: number;
+  decade: string;
+  songTitle: string;
+  artist: string;
+  soloist: string;
+  saxophoneType: string;
+}
+
 export default function Home() {
-  const [solos, setSolos] = useState<Record<string, unknown>[]>([]);
-  const [filtered, setFiltered] = useState<Record<string, unknown>[]>([]);
+  const [solos, setSolos] = useState<Solo[]>([]);
+  const [filtered, setFiltered] = useState<Solo[]>([]);
   const [search, setSearch] = useState("");
   const [decade, setDecade] = useState("All");
   const [saxType, setSaxType] = useState("All");
@@ -18,7 +28,7 @@ export default function Home() {
     async function fetchData() {
       const q = query(collection(db, "solos"), orderBy("year"));
       const snapshot = await getDocs(q);
-      const data = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+      const data = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })) as Solo[];
       setSolos(data);
       setFiltered(data);
       setLoading(false);
@@ -91,17 +101,4 @@ export default function Home() {
                 {filtered.map(solo => (
                   <tr key={solo.id} className="border-b border-gray-800 hover:bg-gray-800 transition-colors">
                     <td className="py-2 pr-4 text-gray-400">{solo.year}</td>
-                    <td className="py-2 pr-4 font-medium">{solo.songTitle}</td>
-                    <td className="py-2 pr-4 text-gray-300">{solo.artist}</td>
-                    <td className="py-2 pr-4 text-yellow-300">{solo.soloist}</td>
-                    <td className="py-2 text-gray-400">{solo.saxophoneType}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        )}
-      </div>
-    </main>
-  );
-}
+                    <td className="py-2 pr-4 font-mediu

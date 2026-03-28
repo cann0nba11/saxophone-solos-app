@@ -5,7 +5,7 @@ import { collection, getDocs, query, orderBy } from "firebase/firestore";
 
 export default function Home() {
   const [solos, setSolos] = useState<Record<string, unknown>[]>([]);
-const [filtered, setFiltered] = useState<Record<string, unknown>[]>([]);
+  const [filtered, setFiltered] = useState<Record<string, unknown>[]>([]);
   const [search, setSearch] = useState("");
   const [decade, setDecade] = useState("All");
   const [saxType, setSaxType] = useState("All");
